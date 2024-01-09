@@ -6,14 +6,12 @@ using namespace std;
 char getUserChoice();
 char getComputerChoice();
 void showChoice(char choice);
-void declareWinner(char winner);
+void chooseWinner(char player, char computer);
 
 int main() {
     srand(time(0));
     char player;
     char computer;
-    char winner;
-    string winnerName;
 
     player = getUserChoice();
     cout << "\nYou chose: ";
@@ -21,13 +19,11 @@ int main() {
     cout << endl;
     
     computer = getComputerChoice();
-    cout << endl << "Computer chose: ";
+    cout << "Computer chose: ";
     showChoice(computer);
     cout << endl;
 
-    winner = chooseWinner(player, computer);
-    cout << endl << "Winner: ";
-    declareWinner(winnerName);
+    chooseWinner(player, computer);
 
     return 0;
 }
@@ -80,30 +76,41 @@ void showChoice(char choice) {
     }
 }
 
-char chooseWinner(char player, char computer) {
-    if (player == computer) {
-        return 'T'; 
+void chooseWinner(char player, char computer) {
+    switch (player) {
+    case 'r':   
+        if (computer == 'r') {
+            cout << "It's a tie!" << endl;
+        }
+        else if(computer == 'p') {
+            cout << "You Lose!" << endl;
+        }
+        else {
+            cout << "You Win!" << endl;
+        }
+        break;
+    case 'p':
+        if (computer == 'r') {
+            cout << "You Win!" << endl;
+        }
+        else if (computer == 'p') {
+            cout << "It's a tie!" << endl;
+        }
+        else {
+            cout << "You Lose!" << endl;
+        }
+        break;
+    case 's':
+        if (computer == 'r') {
+            cout << "You Lose!" << endl;
+        }
+        else if (computer == 'p') {
+            cout << "You Win!" << endl;
+        }
+        else {
+            cout << "Its a tie!" << endl;
+        }
+        break;
+               
     }
-    else if ((player == 'r' && computer == 's') || (player == 'p' && computer == 'r') ||
-        (player == 's' && computer == 'p')) {
-        return 'P'; 
-    }
-    else {
-        return 'C'; 
-    }
-}
-
-void declareWinner(char winner) {
-    string winnerName;
-    if (winner == 'T') {
-        cout << "It's a Tie!";
-    }
-    else if (winner == 'P') {
-        winnerName = "Player wins!";
-    }
-    else if (winner == 'C') {
-        winnerName = "Computer wins!";
-    }
-    cout << endl;
-    return winnerName;
 }
